@@ -22,3 +22,4 @@
 ## Printing Orientations
 
 ## License
+This work is licensed under a [MIT License](LICENSE).
