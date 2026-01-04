@@ -82,7 +82,7 @@ void loop() {
 
     debug();
 
-    steeringInput = qtr.readLineBlack(sensorValues);
+    steeringInput = qtr.readLineWhite(sensorValues);
     steeringPID.Compute();
     velocityInput = as5600.getRotationsPerSecond();
     velocityPID.Compute();
