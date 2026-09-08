@@ -1,3 +1,8 @@
+/**
+ * @file pacer_controller.cpp
+ * @brief ESP32 PWM output, status indication, and run completion logic.
+ */
+
 #include "pacer_controller.hpp"
 
 PacerController::PacerController(int escPin, int servoPin, double gearRatio, double wheelCircumference, Adafruit_NeoPixel& strip) 
@@ -12,6 +17,7 @@ PacerController::PacerController(int escPin, int servoPin, double gearRatio, dou
 
 void PacerController::setESCMicroseconds(int microseconds) {
   microseconds = constrain(microseconds, 1000, 2000);
+  // Scale pulse width by the 14-bit duty range over a 20 ms PWM period.
   ledcWrite(escPin, microseconds * 16383 / 20000);
 }
 
@@ -35,6 +41,7 @@ void PacerController::begin() {
 }
 
 void PacerController::update(double steeringOutput, double velocityOutput, double distanceTraveled) {
+  // The 1575 us baseline is specific to the current ESC setup.
   setESCMicroseconds(1575 + (int)velocityOutput);
   setServoAngle(90 + (int)steeringOutput);
   if (distanceTraveled >= distance) {

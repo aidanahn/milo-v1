@@ -1,3 +1,8 @@
+/**
+ * @file as5600.cpp
+ * @brief I2C angle acquisition, wrap correction, and encoder speed filtering.
+ */
+
 #include "as5600.hpp"
 
 AS5600::AS5600(String direction, double gearRatio, double wheelCircumference) {
@@ -42,6 +47,7 @@ void AS5600::update() {
 
   int deltaAngle = currentAngle - previousAngle;
 
+  // Select the shortest signed displacement across the 12-bit wrap boundary.
   if (deltaAngle > 2048) deltaAngle -= 4096;
   if (deltaAngle < -2048) deltaAngle += 4096;
 
@@ -72,6 +78,7 @@ double AS5600::getRotationsPerSecond() {
 }
 
 double AS5600::kalman(double u) {
+  // Function-local static history persists across resets and encoder instances.
   static double p = 0.0;
   static double u_hat = 0.0;
   static const double r = 50.0;

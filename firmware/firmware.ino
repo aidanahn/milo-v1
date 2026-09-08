@@ -1,3 +1,12 @@
+/**
+ * @file firmware.ino
+ * @brief Initialize hardware and coordinate the Pacer feedback-control loop.
+ *
+ * Connects QTR line sensing and AS5600 odometry to steering and velocity PID
+ * controllers. WebInterface dispatches run commands to the callbacks here;
+ * PacerController applies actuator outputs and handles distance completion.
+ */
+
 #include <Arduino.h>
 #include "as5600.hpp"
 #include "pacer_controller.hpp"
@@ -26,6 +35,11 @@ void handleStop();
 void handleCalibrate();
 void handlePID();
 
+/**
+ * @brief Initialize serial output, control loops, web routes, and hardware.
+ * @details Configures both PID controllers with a 20 ms sample interval.
+ * Sensor calibration is performed separately through the web interface.
+ */
 void setup() {
   Serial.begin(921600);
 
@@ -49,6 +63,12 @@ void setup() {
   pacer.begin();
 }
 
+/**
+ * @brief Service web requests and update feedback control while pacing.
+ * @details Encoder and line-sensor readings feed the velocity and steering
+ * controllers. PID Compute() calls respect their configured sample intervals;
+ * the Arduino loop itself does not run at a fixed frequency.
+ */
 void loop() {
   web.update();
   if (pacer.getPacingStatus()) {
@@ -65,6 +85,11 @@ void loop() {
   }
 }
 
+/**
+ * @brief Write encoder speed to serial between fixed plot references.
+ * @details Emits CSV values: 20, encoder-shaft rotations per second, 30.
+ * The outer values are plotting references, not measured speeds.
+ */
 void debug() {
   Serial.print("20");
   Serial.print(",");
@@ -73,6 +98,12 @@ void debug() {
   Serial.println("30");
 }
 
+/**
+ * @brief Start a run using the current distance and duration settings.
+ * @details Resets distance accumulation and reinitializes both PID controllers
+ * with zero output. Sets the velocity target in encoder-shaft rotations per
+ * second. WebInterface updates settings before invoking this callback.
+ */
 void handleStart() {
   as5600.resetDistanceTraveled();
   velocityPID.SetMode(MANUAL);
@@ -85,10 +116,19 @@ void handleStart() {
   velocitySetpoint = pacer.getGoalRotationsPerSecond();
 }
 
+/**
+ * @brief Stop pacing and restore neutral throttle and centered steering.
+ */
 void handleStop() {
   pacer.stop();
 }
 
+/**
+ * @brief Reset and collect 400 calibration samples from the QTR array.
+ * @details Shows yellow during calibration and green afterward. This callback
+ * blocks web servicing and the main control loop until sampling completes;
+ * the sensor array must encounter the line and background during sampling.
+ */
 void handleCalibrate() {
   qtr.resetCalibration();
   pacer.setStatusColor(255, 255, 0);
@@ -98,6 +138,11 @@ void handleCalibrate() {
   pacer.setStatusColor(0, 255, 0);
 }
 
+/**
+ * @brief Apply the current web-editable gains to both PID controllers.
+ * @details Steering gains are divided by 1000 to match the QTR position scale;
+ * velocity gains are applied directly. WebInterface updates the settings first.
+ */
 void handlePID() {
   steeringPID.SetTunings(settings.steeringKp / 1000, settings.steeringKi / 1000, settings.steeringKd / 1000);
   velocityPID.SetTunings(settings.velocityKp, settings.velocityKi, settings.velocityKd);

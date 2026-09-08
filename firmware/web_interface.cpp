@@ -1,3 +1,8 @@
+/**
+ * @file web_interface.cpp
+ * @brief Wi-Fi access point, control-page rendering, and form handling.
+ */
+
 #include "web_interface.hpp"
 
 #include <WiFi.h>
@@ -20,6 +25,7 @@ void WebInterface::update() {
 }
 
 void WebInterface::handleAction(Action action) {
+  // Preserve command ordering: callbacks must observe submitted settings.
   updateInputs();
   action();
   server.send(204);
