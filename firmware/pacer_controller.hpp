@@ -1,5 +1,5 @@
-#ifndef PacerController_h
-#define PacerController_h
+#ifndef PACER_FIRMWARE_PACER_CONTROLLER_HPP_
+#define PACER_FIRMWARE_PACER_CONTROLLER_HPP_
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>

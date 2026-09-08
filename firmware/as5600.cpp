@@ -1,4 +1,4 @@
-#include "AS5600.h"
+#include "as5600.hpp"
 
 AS5600::AS5600(String direction, double gearRatio, double wheelCircumference) {
   if (direction == "FORWARD") {

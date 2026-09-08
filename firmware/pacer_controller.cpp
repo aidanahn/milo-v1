@@ -1,4 +1,4 @@
-#include "PacerController.h"
+#include "pacer_controller.hpp"
 
 PacerController::PacerController(int escPin, int servoPin, double gearRatio, double wheelCircumference, Adafruit_NeoPixel& strip) 
   : strip(strip)

@@ -1,5 +1,5 @@
-#ifndef AS5600_h
-#define AS5600_h
+#ifndef PACER_FIRMWARE_AS5600_HPP_
+#define PACER_FIRMWARE_AS5600_HPP_
 
 #include <Arduino.h>
 #include <Wire.h>
