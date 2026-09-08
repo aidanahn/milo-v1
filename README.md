@@ -32,9 +32,33 @@ https://github.com/user-attachments/assets/f611f2c6-a903-4dcb-a009-24ee0bf0cf6d
 | 1 | XT60 to T-Plug Adapter |
 | 33 | Jumper Wires |
 | 1 | 5V Buck Converter |
-|  | PETG Filament |
-|  | Differential Oil |
-|  | Shock Oil |
+| | PETG Filament |
+| | Differential Oil |
+| | Shock Oil |
+
+## Fastener List
+| Type | Size | Length | Head | Quantity |
+|------|------|--------|------|----------|
+| Screw | M2 | 8mm | Button Head | 4 |
+| Washer | M2 | | | 4 |
+| Screw | M3 | 4mm | Socket Head | 10 |
+| Screw | M3 | 8mm | Socket Head | 2 |
+| Screw | M3 | 12mm | Socket Head | 21 |
+| Screw | M3 | 16mm | Socket Head | 20 |
+| Screw | M3 | 20mm | Socket Head | 6 |
+| Screw | M3 | 25mm | Socket Head | 13 |
+| Screw | M3 | 30mm | Socket Head | 1 |
+| Screw | M3 | 35mm | Socket Head | 10 |
+| Screw | M3 | 8mm | Button Head | 2 |
+| Screw | M3 | 12mm | Button Head | 7 |
+| Screw | M3 | 16mm | Button Head | 9 |
+| Rod | M3 | 50mm | | 1 |
+| Rod | M3 | 200mm | | 1 |
+| Rod | M3 | | | 11 |
+| Washer | M3 | | | 6 |
+| Set Screw | M3 | | | 2 |
+| Screw | M4 | 20mm | Socket Head | 4 |
+| Nylon Locknut | M4 | | | 4 |
 
 ## License
 This work is licensed under a [MIT License](LICENSE).
