@@ -1,12 +1,7 @@
 # pacer-v1
 
-## Table of Contents
-1. [Description](#description)
-2. [Videos](#videos)
-3. [License](#license)
-
 ## Description
-(Write Here)
+A 3D-printed, 1/10-scale autonomous pacer robot for track and field.
 
 ## Videos
 
