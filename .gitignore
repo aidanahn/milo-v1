@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+._*
+
+# Build output
+build/
+.pio/
+*.o
+*.a
+*.elf
+*.hex
+*.bin
+*.map
+
+# Editor temporary files
+*.swp
+*.swo
+*~
